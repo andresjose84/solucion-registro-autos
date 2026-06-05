@@ -1,0 +1,341 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Registro de Autos API",
+    "description": "Coleccion para probar la API REST de Registro y Gestion de Autos.\n\n## Uso rapido\n1. Importa esta coleccion en Postman.\n2. Ejecuta **Auth > Login (demo)** para guardar el token JWT automaticamente.\n3. Prueba los endpoints de **Autos** (usan el token guardado).\n\n## Credenciales demo\n- Email: demo@registroautos.com\n- Password: Demo123!\n\n## Validaciones\n- Placa colombiana: 3 letras + 3 digitos (ej. MWK737)\n- Ano del auto: no puede ser futuro",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "carId",
+      "value": "1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "description": "Endpoints publicos de autenticacion.",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Juan Perez\",\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"Password1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "register"]
+            },
+            "description": "Registra un nuevo usuario. La contrasena debe tener al menos 8 caracteres, una mayuscula y un numero."
+          },
+          "response": []
+        },
+        {
+          "name": "Login (demo)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    const json = pm.response.json();",
+                  "    pm.collectionVariables.set('token', json.token);",
+                  "    if (pm.environment.name) pm.environment.set('token', json.token);",
+                  "    pm.test('Token guardado en variable {{token}}', function () {",
+                  "        pm.expect(json.token).to.be.a('string').and.not.empty;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@registroautos.com\",\n  \"password\": \"Demo123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "description": "Inicia sesion con el usuario demo. El token JWT se guarda automaticamente en la variable de coleccion `token`."
+          },
+          "response": []
+        },
+        {
+          "name": "Login (custom)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const json = pm.response.json();",
+                  "    pm.collectionVariables.set('token', json.token);",
+                  "    if (pm.environment.name) pm.environment.set('token', json.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tu-email@example.com\",\n  \"password\": \"TuPassword1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "description": "Login con credenciales personalizadas. Edita email y password en el body."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Autos",
+      "description": "CRUD de autos del usuario autenticado. Requiere JWT (ejecuta Login primero).",
+      "item": [
+        {
+          "name": "Listar autos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars"]
+            },
+            "description": "Lista todos los autos del usuario autenticado."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar autos (filtros)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars?search=MWK&brand=Chevrolet&year=2020",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "MWK",
+                  "description": "Buscar por placa o modelo"
+                },
+                {
+                  "key": "brand",
+                  "value": "Chevrolet",
+                  "description": "Filtrar por marca"
+                },
+                {
+                  "key": "year",
+                  "value": "2020",
+                  "description": "Filtrar por ano"
+                }
+              ]
+            },
+            "description": "Lista autos con busqueda y filtros opcionales."
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener auto por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars/{{carId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars", "{{carId}}"]
+            },
+            "description": "Obtiene el detalle de un auto por ID. Usa la variable `carId` (por defecto 1)."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear auto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const json = pm.response.json();",
+                  "    pm.collectionVariables.set('carId', String(json.id));",
+                  "    if (pm.environment.name) pm.environment.set('carId', String(json.id));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brand\": \"Toyota\",\n  \"model\": \"Corolla\",\n  \"year\": 2023,\n  \"plate\": \"XYZ789\",\n  \"color\": \"Gris\",\n  \"photoUrl\": \"https://placehold.co/400x250/1e293b/ffffff?text=Toyota+Corolla\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars"]
+            },
+            "description": "Crea un auto. Placa formato colombiano (ej. MWK737). El ID creado se guarda en `carId`."
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar auto",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brand\": \"Toyota\",\n  \"model\": \"Corolla XEI\",\n  \"year\": 2023,\n  \"plate\": \"XYZ789\",\n  \"color\": \"Plata\",\n  \"photoUrl\": \"https://placehold.co/400x250/1e293b/ffffff?text=Toyota+Corolla+XEi\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars/{{carId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars", "{{carId}}"]
+            },
+            "description": "Actualiza un auto existente por ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar auto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars/{{carId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars", "{{carId}}"]
+            },
+            "description": "Elimina un auto por ID. Respuesta esperada: 204 No Content."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear auto (placa invalida - prueba error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brand\": \"Ford\",\n  \"model\": \"Focus\",\n  \"year\": 2021,\n  \"plate\": \"ABC-123\",\n  \"color\": \"Azul\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars"]
+            },
+            "description": "Ejemplo de validacion fallida: placa con formato incorrecto. Respuesta esperada: 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear auto (ano futuro - prueba error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brand\": \"Ford\",\n  \"model\": \"Focus\",\n  \"year\": 2099,\n  \"plate\": \"FUT999\",\n  \"color\": \"Azul\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cars"]
+            },
+            "description": "Ejemplo de validacion fallida: ano futuro. Respuesta esperada: 400 Bad Request."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
