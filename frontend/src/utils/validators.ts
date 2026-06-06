@@ -4,16 +4,16 @@ export function validatePlate(plate: string): string | null {
   const normalized = plate.trim().toUpperCase();
   if (!normalized) return 'La placa es obligatoria';
   if (!PLATE_PATTERN.test(normalized)) {
-    return 'Formato colombiano: 3 letras + 3 numeros (ej. MWK737)';
+    return 'Formato de placa: 3 letras + 3 numeros (ej. MWK737)';
   }
   return null;
 }
 
 export function validateYear(year: number | ''): string | null {
-  if (year === '') return 'El ano es obligatorio';
+  if (year === '') return 'El año es obligatorio';
   const currentYear = new Date().getFullYear();
   if (year < 1900 || year > currentYear) {
-    return `El ano debe estar entre 1900 y ${currentYear}`;
+    return `El año debe estar entre 1900 y ${currentYear}`;
   }
   return null;
 }

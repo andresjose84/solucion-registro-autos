@@ -104,7 +104,7 @@ export function CarFormModal({ open, initial, onClose, onSubmit }: CarFormModalP
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Ano" error={errors.year}>
+            <Field label="Año" error={errors.year}>
               <input
                 type="number"
                 className={inputClass(!!errors.year)}

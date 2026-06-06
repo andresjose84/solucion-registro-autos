@@ -33,7 +33,7 @@ export function SearchFilters({ filters, brands, onChange }: SearchFiltersProps)
         </select>
       </div>
       <div>
-        <label className="mb-1.5 block text-sm text-slate-400">Ano</label>
+        <label className="mb-1.5 block text-sm text-slate-400">Año</label>
         <input
           type="number"
           className={inputClass()}
