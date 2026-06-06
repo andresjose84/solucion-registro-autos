@@ -14,7 +14,20 @@ El backend es una API REST stateless construida con **Spring Boot 3** y **Java 1
 | Puerto por defecto | `8080` |
 | Prefijo API | `/api/v1` |
 | Autenticación | JWT Bearer (stateless) |
-| Base de datos | SQL Server 2022 (schema gestionado por scripts SQL) |
+| Base de datos | SQL Server (Azure SQL Database en producción) |
+
+### Acceso en produccion
+
+| Servicio | URL |
+|----------|-----|
+| API (backend) | https://solucion-registro-autos.onrender.com |
+| Swagger | https://solucion-registro-autos.onrender.com/swagger-ui.html |
+| Health check | https://solucion-registro-autos.onrender.com/health |
+| Portal (frontend) | https://registrovehiculos.ingandressanchez.com |
+
+**Credenciales demo:** `demo@registroautos.com` / `Demo123!`
+
+> El backend en Render (plan gratuito) puede tardar ~1 min en responder si estuvo inactivo.
 
 ---
 
@@ -404,8 +417,10 @@ sequenceDiagram
 
 ## 10. Documentación OpenAPI / Swagger
 
-- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
-- **API Docs JSON**: `http://localhost:8080/v3/api-docs`
+- **Swagger UI (local):** `http://localhost:8080/swagger-ui.html`
+- **Swagger UI (producción):** https://solucion-registro-autos.onrender.com/swagger-ui.html
+- **API Docs JSON (local):** `http://localhost:8080/v3/api-docs`
+- **API Docs JSON (producción):** https://solucion-registro-autos.onrender.com/v3/api-docs
 - Esquema de seguridad: `bearerAuth` (HTTP Bearer JWT)
 - Anotaciones: `@Tag`, `@Operation`, `@SecurityRequirement`
 

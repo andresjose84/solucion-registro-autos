@@ -16,7 +16,18 @@ El frontend es una **Single Page Application (SPA)** construida con **React 19**
 | Estado global | Zustand (solo autenticación) |
 | HTTP | Axios con interceptores JWT |
 | Routing | React Router DOM 7 |
-| Despliegue | Nginx (Docker multi-stage) |
+| Despliegue | Vercel (producción) / Nginx (Docker local) |
+
+### Acceso en produccion
+
+| Servicio | URL |
+|----------|-----|
+| Portal (frontend) | https://registrovehiculos.ingandressanchez.com |
+| API (backend) | https://solucion-registro-autos.onrender.com |
+
+**Credenciales demo:** `demo@registroautos.com` / `Demo123!`
+
+> El backend en Render (plan gratuito) puede tardar ~1 min en responder si estuvo inactivo.
 
 ---
 
@@ -283,6 +294,7 @@ interface ApiError {
 |---------|-----------|---------|
 | Desarrollo (`npm run dev`) | Vite proxy en `vite.config.ts` | `http://localhost:8080` |
 | Producción (Docker) | nginx `proxy_pass` en `nginx.conf` | `http://backend:8080` |
+| Producción (Vercel) | Variable `VITE_API_URL` en `api/client.ts` | `https://solucion-registro-autos.onrender.com/api/v1` |
 
 ---
 

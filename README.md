@@ -9,6 +9,19 @@ Sistema fullstack para registro de usuarios, autenticacion JWT y CRUD de vehicul
 - **Base de datos:** SQL Server 2022
 - **DevOps:** Docker y Docker Compose
 
+## Acceso en produccion
+
+| Servicio | URL |
+|----------|-----|
+| Portal (frontend) | https://registrovehiculos.ingandressanchez.com |
+| API (backend) | https://solucion-registro-autos.onrender.com |
+| Swagger | https://solucion-registro-autos.onrender.com/swagger-ui.html |
+| Health check | https://solucion-registro-autos.onrender.com/health |
+
+Usa las [credenciales demo](#credenciales-demo) para iniciar sesion en el portal.
+
+> El backend en Render (plan gratuito) puede tardar ~1 min en responder si estuvo inactivo.
+
 ## Requisitos
 
 - Docker Desktop (o Docker Engine + Compose)
@@ -159,7 +172,7 @@ docker-compose.yml
 
 ## Swagger con JWT
 
-1. Abre http://localhost:8080/swagger-ui.html
+1. Abre http://localhost:8080/swagger-ui.html (local) o https://solucion-registro-autos.onrender.com/swagger-ui.html (produccion)
 2. Ejecuta `POST /api/v1/auth/login` con las credenciales demo
 3. Copia el token de la respuesta
 4. Pulsa **Authorize** e ingresa: `Bearer <token>`
