@@ -59,9 +59,6 @@ export function LoginPage() {
         ¿No tienes cuenta?{' '}
         <Link to="/register" className="text-brand-400 hover:text-brand-300">Registrate</Link>
       </p>
-      <p className="mt-3 text-center text-xs text-slate-500">
-        Demo: demo@registroautos.com / Demo123!
-      </p>
     </AuthCard>
   );
 }
