@@ -100,6 +100,23 @@ El proxy de Vite redirige `/api` hacia `http://localhost:8080`.
 
 ## API principal
 
+### Health (`/health`) — publico
+
+| Metodo | Ruta | Descripcion |
+|--------|------|-------------|
+| GET | `/health` | Estado del backend y conexion a la base de datos |
+
+Ejemplo de respuesta (200 OK):
+
+```json
+{
+  "status": "UP",
+  "service": "registro-autos-backend",
+  "timestamp": "2026-06-04T12:00:00",
+  "database": { "status": "UP" }
+}
+```
+
 ### Autenticacion (`/api/v1/auth`)
 
 | Metodo | Ruta | Descripcion |

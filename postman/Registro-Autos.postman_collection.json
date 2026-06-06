@@ -31,6 +31,29 @@
   },
   "item": [
     {
+      "name": "Health",
+      "description": "Estado del backend (publico, sin JWT).",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Consulta el estado del backend y la conexion a la base de datos. Respuesta 200 si todo esta UP, 503 si la BD no responde."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Auth",
       "description": "Endpoints publicos de autenticacion.",
       "item": [
