@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidYear {
 
-    String message() default "El ano del auto no puede ser futuro";
+    String message() default "El año del auto no puede ser futuro";
 
     Class<?>[] groups() default {};
 

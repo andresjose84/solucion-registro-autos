@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidPlate {
 
-    String message() default "La placa debe tener formato colombiano (ej. MWK737)";
+    String message() default "La placa debe tener el siguiente formato: 3 letras + 3 numeros (ej. MWK737)";
 
     Class<?>[] groups() default {};
 

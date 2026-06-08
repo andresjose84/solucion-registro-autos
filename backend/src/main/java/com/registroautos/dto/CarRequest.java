@@ -15,7 +15,7 @@ public record CarRequest(
         @Size(max = 100, message = "El modelo no puede superar 100 caracteres")
         String model,
 
-        @NotNull(message = "El ano es obligatorio")
+        @NotNull(message = "El año es obligatorio")
         @ValidYear
         Integer year,
 

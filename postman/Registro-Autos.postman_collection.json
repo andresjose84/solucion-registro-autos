@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "name": "Registro de Autos API",
-    "description": "Coleccion para probar la API REST de Registro y Gestion de Autos.\n\n## Uso rapido\n1. Importa esta coleccion en Postman.\n2. Ejecuta **Auth > Login (demo)** para guardar el token JWT automaticamente.\n3. Prueba los endpoints de **Autos** (usan el token guardado).\n\n## Credenciales demo\n- Email: demo@registroautos.com\n- Password: Demo123!\n\n## Validaciones\n- Placa colombiana: 3 letras + 3 digitos (ej. MWK737)\n- Ano del auto: no puede ser futuro",
+    "description": "Coleccion para probar la API REST de Registro y Gestion de Autos.\n\n## Uso rapido\n1. Importa esta coleccion en Postman.\n2. Ejecuta **Auth > Login (demo)** para guardar el token JWT automaticamente.\n3. Prueba los endpoints de **Autos** (usan el token guardado).\n\n## Credenciales demo\n- Email: demo@registroautos.com\n- Password: Demo123!\n\n## Validaciones\n- Placa: 3 letras + 3 digitos (ej. MWK737)\n- año del auto: no puede ser futuro",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -215,7 +215,7 @@
                 {
                   "key": "year",
                   "value": "2020",
-                  "description": "Filtrar por ano"
+                  "description": "Filtrar por año"
                 }
               ]
             },
@@ -271,7 +271,7 @@
               "host": ["{{baseUrl}}"],
               "path": ["api", "v1", "cars"]
             },
-            "description": "Crea un auto. Placa formato colombiano (ej. MWK737). El ID creado se guarda en `carId`."
+            "description": "Crea un auto. Placa formato 3 Letra + 3 Numeros (ej. MWK737). El ID creado se guarda en `carId`."
           },
           "response": []
         },
@@ -336,7 +336,7 @@
           "response": []
         },
         {
-          "name": "Crear auto (ano futuro - prueba error)",
+          "name": "Crear auto (año futuro - prueba error)",
           "request": {
             "method": "POST",
             "header": [
@@ -354,7 +354,7 @@
               "host": ["{{baseUrl}}"],
               "path": ["api", "v1", "cars"]
             },
-            "description": "Ejemplo de validacion fallida: ano futuro. Respuesta esperada: 400 Bad Request."
+            "description": "Ejemplo de validacion fallida: año futuro. Respuesta esperada: 400 Bad Request."
           },
           "response": []
         }

@@ -101,6 +101,15 @@ mvn spring-boot:run
 
 Variables por defecto en `application.yml` apuntan a SQL Server local en `localhost:1433`.
 
+### Tests unitarios
+
+```bash
+cd backend
+mvn test
+```
+
+Ver documentacion completa en [docs/backend-testing.md](docs/backend-testing.md).
+
 ### Frontend
 
 ```bash
@@ -158,6 +167,7 @@ Ejemplo de respuesta (200 OK):
 Informes detallados de arquitectura, tecnologias y convenciones:
 
 - [Backend — informe tecnico](docs/backend.md)
+- [Backend — tests unitarios](docs/backend-testing.md)
 - [Frontend — informe tecnico](docs/frontend.md)
 - [Requisitos funcionales del proyecto](docs/registro-de-autos.md)
 

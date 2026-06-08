@@ -239,7 +239,7 @@ erDiagram
 | `user` | `User` | `@ManyToOne` LAZY |
 | `brand`, `model` | `String` | Marca y modelo |
 | `year` | `Integer` | Año de fabricación |
-| `plate` | `String` | Placa colombiana (3 letras + 3 dígitos) |
+| `plate` | `String` | Placa (3 letras + 3 dígitos) |
 | `color` | `String` | Color del vehículo |
 | `photoUrl` | `String` | URL simulada de foto (nullable) |
 | `createdAt`, `updatedAt` | `LocalDateTime` | Auditoría automática |
@@ -367,10 +367,10 @@ sequenceDiagram
   "timestamp": "2026-06-04T12:00:00",
   "status": 400,
   "error": "Bad Request",
-  "message": "La placa debe tener formato colombiano (ej. MWK737)",
+  "message": "La placa debe tener el siguiente formato 3 Letra + 3 Numeros (ej. MWK737)",
   "path": "/api/v1/cars",
   "fieldErrors": {
-    "plate": "La placa debe tener formato colombiano (ej. MWK737)"
+    "plate": "La placa debe tener el siguiente formato 3 Letra + 3 Numeros (ej. MWK737)"
   }
 }
 ```
@@ -462,13 +462,35 @@ El servicio `backend` en `docker-compose.yml` depende de `db-init` y recibe vari
 
 ## 12. Testing
 
-Estado actual: **cobertura mínima**.
+Documentación completa: **[Tests unitarios — Backend](backend-testing.md)**
 
-| Test | Archivo | Qué valida |
-|------|---------|------------|
-| `contextLoads` | `RegistroAutosApplicationTests.java` | El contexto Spring arranca |
+### Ejecutar tests
 
-**Pendiente recomendado:** tests unitarios de servicios, tests de integración de controladores con `@WebMvcTest` / `@SpringBootTest`, y tests de seguridad JWT.
+```bash
+cd backend
+mvn test
+```
+
+**44 tests** — no requieren SQL Server (perfil `test` con H2 en memoria).
+
+### Cobertura actual
+
+| Módulo | Tests |
+|--------|-------|
+| `AuthService` | Registro, login, email duplicado |
+| `CarService` | CRUD, ownership, placa duplicada |
+| `JwtService` | Token, validación, secreto |
+| `ValidPlateValidator` / `ValidYearValidator` | Reglas de negocio |
+| `EntityMapper` | Mapeo Entity → DTO |
+| `GlobalExceptionHandler` | Códigos HTTP de error |
+| `RegistroAutosApplicationTests` | Smoke test del contexto Spring |
+
+### Pendiente recomendado
+
+- Tests de controladores con `@WebMvcTest` + `MockMvc`
+- Tests de seguridad end-to-end
+- Testcontainers con SQL Server real
+- JaCoCo para cobertura en CI
 
 ---
 

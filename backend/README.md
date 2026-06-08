@@ -94,17 +94,7 @@ flowchart TB
 | Infraestructura | `repository` | Acceso a datos (Spring Data JPA) |
 | Transversal | `config`, `security`, `exception`, `validation`, `mapper` | Seguridad, errores, validación, mapeo |
 
-### 3.2 Principios SOLID aplicados
-
-| Principio | Aplicación en el proyecto |
-|-----------|---------------------------|
-| **S** — Single Responsibility | Cada clase tiene un rol: `JwtService` solo maneja tokens; `CarService` solo lógica de autos |
-| **O** — Open/Closed | Validadores custom (`@ValidPlate`, `@ValidYear`) extienden Bean Validation sin modificar DTOs |
-| **L** — Liskov Substitution | `JwtAuthenticationFilter` extiende `OncePerRequestFilter` correctamente |
-| **I** — Interface Segregation | Repositorios exponen solo métodos necesarios (`findByIdAndUserId`, etc.) |
-| **D** — Dependency Inversion | Servicios dependen de interfaces `JpaRepository`, no de implementaciones concretas |
-
-### 3.3 Patrones de diseño
+### 3.2 Patrones de diseño
 
 | Patrón | Implementación |
 |--------|----------------|
@@ -116,7 +106,7 @@ flowchart TB
 | **Controller Advice** | `GlobalExceptionHandler` centraliza respuestas de error en JSON uniforme |
 | **Schema-first DB** | `ddl-auto: validate` — el esquema lo define SQL externo, Hibernate solo valida |
 
-### 3.4 Convenciones de código
+### 3.3 Convenciones de código
 
 - **Inyección por constructor** en todos los beans (sin `@Autowired` en campos)
 - **Transacciones declarativas**: `@Transactional` en servicios; `readOnly = true` en consultas
@@ -226,7 +216,7 @@ erDiagram
 | `user` | `User` | `@ManyToOne` LAZY |
 | `brand`, `model` | `String` | Marca y modelo |
 | `year` | `Integer` | Año de fabricación |
-| `plate` | `String` | Placa colombiana (3 letras + 3 dígitos) |
+| `plate` | `String` | Placa (3 letras + 3 dígitos) |
 | `color` | `String` | Color del vehículo |
 | `photoUrl` | `String` | URL simulada de foto (nullable) |
 | `createdAt`, `updatedAt` | `LocalDateTime` | Auditoría automática |
@@ -354,10 +344,10 @@ sequenceDiagram
   "timestamp": "2026-06-04T12:00:00",
   "status": 400,
   "error": "Bad Request",
-  "message": "La placa debe tener formato colombiano (ej. MWK737)",
+  "message": "La placa debe tener el siguiente formato (ej. MWK737)",
   "path": "/api/v1/cars",
   "fieldErrors": {
-    "plate": "La placa debe tener formato colombiano (ej. MWK737)"
+    "plate": "La placa debe tener el siguiente formato (ej. MWK737)"
   }
 }
 ```
